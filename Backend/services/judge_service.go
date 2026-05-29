@@ -2,6 +2,7 @@ package services
 
 import (
 	"BE_FAKE_REVIEW/models"
+	"encoding/json"
 	"fmt"
 	"regexp"
 	"strconv"
@@ -16,6 +17,12 @@ func NewJudgeService(llm DeepSeekService) JudgeService {
 	return JudgeService{
 		LLM: llm,
 	}
+}
+
+type JudgeJSONResponse struct {
+	JudgeScore   int    `json:"Judge Score"`
+	JudgeVerdict string `json:"Judge Verdict"`
+	JudgeComment string `json:"Judge Comment"`
 }
 
 func (s JudgeService) JudgeClassification(input models.JudgeRequest) (models.JudgeResult, error) {
@@ -52,6 +59,8 @@ Berikan output dengan format berikut:
 Judge Score: angka 0 sampai 100
 Judge Verdict: Valid/Tidak Valid
 Judge Comment: komentar singkat terhadap hasil prediksi.
+
+Jangan gunakan format JSON.
 `,
 		input.Review,
 		input.PredictionLabel,
@@ -66,12 +75,7 @@ Judge Comment: komentar singkat terhadap hasil prediksi.
 		return models.JudgeResult{}, err
 	}
 
-	result := models.JudgeResult{
-		JudgeScore:   extractJudgeScore(answer),
-		JudgeVerdict: extractJudgeValue(answer, "Judge Verdict:"),
-		JudgeComment: extractJudgeValue(answer, "Judge Comment:"),
-		RawAnswer:    answer,
-	}
+	result := parseJudgeAnswer(answer)
 
 	return result, nil
 }
@@ -88,6 +92,28 @@ func buildJudgeRetrievalContext(results []models.SearchResult) string {
 	}
 
 	return builder.String()
+}
+
+func parseJudgeAnswer(answer string) models.JudgeResult {
+	result := models.JudgeResult{
+		RawAnswer: answer,
+	}
+
+	// Coba parse jika DeepSeek mengembalikan JSON
+	var jsonResult JudgeJSONResponse
+	if err := json.Unmarshal([]byte(answer), &jsonResult); err == nil {
+		result.JudgeScore = normalizeJudgeScore(jsonResult.JudgeScore)
+		result.JudgeVerdict = jsonResult.JudgeVerdict
+		result.JudgeComment = jsonResult.JudgeComment
+		return result
+	}
+
+	// Fallback parse format teks biasa
+	result.JudgeScore = extractJudgeScore(answer)
+	result.JudgeVerdict = extractJudgeValue(answer, "Judge Verdict:")
+	result.JudgeComment = extractJudgeValue(answer, "Judge Comment:")
+
+	return result
 }
 
 func extractJudgeValue(text string, key string) string {
@@ -119,6 +145,10 @@ func extractJudgeScore(text string) int {
 		return 0
 	}
 
+	return normalizeJudgeScore(score)
+}
+
+func normalizeJudgeScore(score int) int {
 	if score < 0 {
 		return 0
 	}

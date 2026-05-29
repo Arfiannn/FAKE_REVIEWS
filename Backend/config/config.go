@@ -23,6 +23,10 @@ type Config struct {
 
 	DeepSeekAPIKey string
 	DeepSeekModel  string
+
+	ShopeeUserDataDir  string
+	ShopeeHeadless     string
+	ShopeeDefaultLimit string
 }
 
 func LoadConfig() Config {
@@ -45,6 +49,10 @@ func LoadConfig() Config {
 
 		DeepSeekAPIKey: getEnv("DEEPSEEK_API_KEY", ""),
 		DeepSeekModel:  getEnv("DEEPSEEK_MODEL", "deepseek-chat"),
+
+		ShopeeUserDataDir:  getEnv("SHOPEE_USER_DATA_DIR", "chrome-profile-go"),
+		ShopeeHeadless:     getEnv("SHOPEE_HEADLESS", "false"),
+		ShopeeDefaultLimit: getEnv("SHOPEE_DEFAULT_LIMIT", "5"),
 	}
 }
 

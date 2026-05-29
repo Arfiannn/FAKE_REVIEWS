@@ -13,6 +13,7 @@ func SetupRoutes(r *gin.Engine, cfg config.Config, db *gorm.DB) {
 	ragHandler := handlers.NewRAGHandler(cfg, db)
 	evaluationHandler := handlers.NewEvaluationHandler(cfg, db)
 	judgeHandler := handlers.NewJudgeHandler(cfg, db)
+	analyzeHandler := handlers.NewAnalyzeHandler(cfg, db)
 
 	api := r.Group("/api")
 	{
@@ -49,6 +50,11 @@ func SetupRoutes(r *gin.Engine, cfg config.Config, db *gorm.DB) {
 		judge := api.Group("/judge")
 		{
 			judge.POST("/classification", judgeHandler.JudgeClassification)
+		}
+
+		analyze := api.Group("/analyze")
+		{
+			analyze.POST("", analyzeHandler.Analyze)
 		}
 	}
 }
