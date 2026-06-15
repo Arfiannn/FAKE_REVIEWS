@@ -1,4 +1,4 @@
-import { Edit3, Layers, Link as LinkIcon, Play, RefreshCw, Sparkles } from 'lucide-react';
+import { Edit3, HelpCircle, Layers, Link as LinkIcon, Play, RefreshCw, Sparkles } from 'lucide-react';
 import { useState } from 'react';
 
 const ReviewInputCard = ({ onAnalyze, isLoading }) => {
@@ -97,8 +97,8 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
                       disabled={isLoading}
                       className={`text-xs font-bold px-3 py-1 rounded-lg transition-all cursor-pointer ${
                         limit === val
-                          ? 'bg-indigo-600 text-white shadow shadow-indigo-600/30'
-                          : 'bg-slate-950 hover:bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-900'
+                           ? 'bg-indigo-600 text-white shadow shadow-indigo-600/30'
+                           : 'bg-slate-950 hover:bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-900'
                       }`}
                     >
                       {val}
@@ -137,26 +137,34 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
             </div>
           )}
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-between items-stretch sm:items-center">
-            {/* Top-K Select Input */}
-            <div className="flex items-center gap-3 bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 sm:max-w-[200px]">
-              <Layers className="w-4 h-4 text-slate-400 shrink-0" />
-              <label htmlFor="top-k" className="text-xs font-semibold text-slate-400 whitespace-nowrap">
-                Top-K RAG:
-              </label>
-              <select
-                id="top-k"
-                value={topK}
-                onChange={(e) => setTopK(Number(e.target.value))}
-                disabled={isLoading}
-                className="bg-transparent text-sm font-bold text-slate-200 outline-none w-full cursor-pointer focus:text-indigo-400"
-              >
-                {[3, 5, 10, 15, 20].map((k) => (
-                  <option key={k} value={k} className="bg-slate-950 text-slate-200">
-                    {k}
-                  </option>
-                ))}
-              </select>
+          <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+            {/* Top-K Select Input and Description */}
+            <div className="flex flex-col gap-2 max-w-lg">
+              <div className="flex items-center gap-3 bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 w-max">
+                <Layers className="w-4 h-4 text-slate-400 shrink-0" />
+                <label htmlFor="top-k" className="text-xs font-semibold text-slate-400 whitespace-nowrap">
+                  Top-K RAG:
+                </label>
+                <select
+                  id="top-k"
+                  value={topK}
+                  onChange={(e) => setTopK(Number(e.target.value))}
+                  disabled={isLoading}
+                  className="bg-transparent text-sm font-bold text-slate-200 outline-none w-12 cursor-pointer focus:text-indigo-400"
+                >
+                  {[3, 5, 10, 15, 20].map((k) => (
+                    <option key={k} value={k} className="bg-slate-950 text-slate-200">
+                      {k}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <p className="text-[11px] text-slate-400 font-medium leading-relaxed flex items-start gap-1.5">
+                <HelpCircle className="w-3.5 h-3.5 text-indigo-400 shrink-0 mt-0.5" />
+                <span>
+                  Top-K RAG = jumlah referensi yang dipakai AI. Nilai 5–10 seimbang, makin besar nilainya proses bisa lebih lama.
+                </span>
+              </p>
             </div>
 
             {/* Submit Button */}

@@ -55,7 +55,7 @@ func (s DeepSeekService) Chat(prompt string) (string, error) {
 				Content: prompt,
 			},
 		},
-		Temperature: 0.2,
+		Temperature: 0,
 	}
 
 	jsonBody, _ := json.Marshal(body)
