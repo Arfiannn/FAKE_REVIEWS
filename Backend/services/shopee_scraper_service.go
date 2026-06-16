@@ -45,7 +45,10 @@ type shopeeShopResponse struct {
 	} `json:"data"`
 }
 
-func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (models.ShopeeScraperResult, error) {
+func (s ShopeeScraperService) ScrapeReviews(
+	productURL string,
+	limit int,
+) (models.ShopeeScraperResult, error) {
 	if limit <= 0 {
 		limit = 1
 	}
@@ -56,7 +59,10 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 	}
 	defer pw.Stop()
 
-	headless := strings.ToLower(s.Config.ShopeeHeadless) == "true"
+	headless := strings.EqualFold(
+		strings.TrimSpace(s.Config.ShopeeHeadless),
+		"true",
+	)
 
 	fmt.Println("Chrome User Data Dir:", s.Config.ShopeeUserDataDir)
 	fmt.Println("Shopee Headless:", s.Config.ShopeeHeadless)
@@ -85,8 +91,10 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 
 	results := make([]models.ShopeeReview, 0)
 	seenIDs := map[int64]bool{}
+
 	productName := ""
 	shopName := ""
+
 	var mu sync.Mutex
 
 	page.OnResponse(func(response playwright.Response) {
@@ -102,6 +110,7 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 			}
 
 			var ratingResponse shopeeRatingResponse
+
 			if err := json.Unmarshal(body, &ratingResponse); err != nil {
 				fmt.Println("Gagal parsing response get_ratings:", err)
 				return
@@ -110,44 +119,49 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 			mu.Lock()
 			defer mu.Unlock()
 
-			for _, r := range ratingResponse.Data.Ratings {
+			for _, rating := range ratingResponse.Data.Ratings {
 				if len(results) >= limit {
 					break
 				}
 
-				if r.CmtID == 0 || seenIDs[r.CmtID] {
+				if rating.CmtID == 0 || seenIDs[rating.CmtID] {
 					continue
 				}
 
-				if strings.TrimSpace(r.Comment) == "" {
+				if strings.TrimSpace(rating.Comment) == "" {
 					continue
 				}
 
-				seenIDs[r.CmtID] = true
+				seenIDs[rating.CmtID] = true
 
 				itemName := productName
-				if itemName == "" && len(r.ProductItems) > 0 {
-					itemName = r.ProductItems[0].Name
+
+				if itemName == "" && len(rating.ProductItems) > 0 {
+					itemName = rating.ProductItems[0].Name
 				}
 
-				if shopName == "" && r.ShopID != 0 {
-					name, err := s.getShopName(page, r.ShopID)
+				if shopName == "" && rating.ShopID != 0 {
+					name, err := s.getShopName(page, rating.ShopID)
 					if err == nil {
 						shopName = name
 					}
 				}
 
 				reviewDate := ""
-				if r.CTime > 0 {
-					reviewDate = time.Unix(r.CTime, 0).Format("2006-01-02 15:04:05")
+
+				if rating.CTime > 0 {
+					reviewDate = time.Unix(
+						rating.CTime,
+						0,
+					).Format("2006-01-02 15:04:05")
 				}
 
 				results = append(results, models.ShopeeReview{
 					ProductName: itemName,
 					ShopName:    shopName,
-					Username:    r.AuthorUsername,
-					Rating:      r.RatingStar,
-					Review:      r.Comment,
+					Username:    rating.AuthorUsername,
+					Rating:      rating.RatingStar,
+					Review:      rating.Comment,
 					Date:        reviewDate,
 				})
 			}
@@ -158,26 +172,60 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 
 	fmt.Println("Membuka Shopee homepage...")
 
-	_, _ = page.Goto("https://shopee.co.id", playwright.PageGotoOptions{
-		WaitUntil: playwright.WaitUntilStateDomcontentloaded,
-		Timeout:   playwright.Float(60000),
-	})
+	_, err = page.Goto(
+		"https://shopee.co.id",
+		playwright.PageGotoOptions{
+			WaitUntil: playwright.WaitUntilStateDomcontentloaded,
+			Timeout:   playwright.Float(60000),
+		},
+	)
+
+	if err != nil {
+		fmt.Println("Gagal membuka Shopee homepage:", err)
+	}
 
 	page.WaitForTimeout(5000)
 
+	if detectShopeeCaptcha(page) {
+		if headless {
+			return models.ShopeeScraperResult{}, fmt.Errorf(
+				"Shopee meminta verifikasi captcha. Jalankan dengan SHOPEE_HEADLESS=false, selesaikan verifikasi secara manual, lalu coba kembali",
+			)
+		}
+
+		fmt.Println("Captcha terdeteksi.")
+		fmt.Println("Silakan selesaikan captcha pada browser.")
+		fmt.Println("Sistem menunggu maksimal 60 detik.")
+
+		if !waitForCaptchaSolved(page, 60) {
+			return models.ShopeeScraperResult{}, fmt.Errorf(
+				"verifikasi captcha belum selesai dalam batas waktu",
+			)
+		}
+
+		fmt.Println("Captcha sudah selesai.")
+	}
+
 	fmt.Println("Membuka halaman produk:", productURL)
 
-	_, err = page.Goto(productURL, playwright.PageGotoOptions{
-		WaitUntil: playwright.WaitUntilStateCommit,
-		Timeout:   playwright.Float(60000),
-	})
+	_, err = page.Goto(
+		productURL,
+		playwright.PageGotoOptions{
+			WaitUntil: playwright.WaitUntilStateCommit,
+			Timeout:   playwright.Float(60000),
+		},
+	)
+
 	if err != nil {
 		page.WaitForTimeout(5000)
 
-		_, err = page.Goto(productURL, playwright.PageGotoOptions{
-			WaitUntil: playwright.WaitUntilStateCommit,
-			Timeout:   playwright.Float(60000),
-		})
+		_, err = page.Goto(
+			productURL,
+			playwright.PageGotoOptions{
+				WaitUntil: playwright.WaitUntilStateCommit,
+				Timeout:   playwright.Float(60000),
+			},
+		)
 
 		if err != nil {
 			return models.ShopeeScraperResult{}, err
@@ -186,14 +234,39 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 
 	page.WaitForTimeout(10000)
 
+	if detectShopeeCaptcha(page) {
+		if headless {
+			return models.ShopeeScraperResult{}, fmt.Errorf(
+				"Shopee meminta verifikasi captcha saat membuka produk",
+			)
+		}
+
+		fmt.Println("Captcha terdeteksi pada halaman produk.")
+		fmt.Println("Silakan selesaikan captcha pada browser.")
+		fmt.Println("Sistem menunggu maksimal 60 detik.")
+
+		if !waitForCaptchaSolved(page, 60) {
+			return models.ShopeeScraperResult{}, fmt.Errorf(
+				"verifikasi captcha belum selesai dalam batas waktu",
+			)
+		}
+
+		fmt.Println("Captcha sudah selesai.")
+
+		page.WaitForTimeout(5000)
+	}
+
 	title, err := page.Title()
 	if err == nil {
 		productName = title
 	}
 
-	if h1, err := page.Locator("h1").First().InnerText(playwright.LocatorInnerTextOptions{
-		Timeout: playwright.Float(7000),
-	}); err == nil {
+	if h1, err := page.
+		Locator("h1").
+		First().
+		InnerText(playwright.LocatorInnerTextOptions{
+			Timeout: playwright.Float(7000),
+		}); err == nil {
 		productName = h1
 	}
 
@@ -206,6 +279,12 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 			break
 		}
 
+		if detectShopeeCaptcha(page) {
+			return models.ShopeeScraperResult{}, fmt.Errorf(
+				"Shopee meminta verifikasi captcha saat mengambil review",
+			)
+		}
+
 		_, _ = page.Evaluate(`window.scrollBy(0, 400)`)
 		page.WaitForTimeout(800)
 
@@ -216,10 +295,12 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 	}
 
 	penilaian := page.Locator("text=Penilaian").First()
+
 	if count, _ := penilaian.Count(); count > 0 {
 		_ = penilaian.Click(playwright.LocatorClickOptions{
 			Timeout: playwright.Float(7000),
 		})
+
 		page.WaitForTimeout(5000)
 	}
 
@@ -237,10 +318,22 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 			break
 		}
 
-		fmt.Println("Halaman review:", pageNumber, "| total:", currentTotal)
+		if detectShopeeCaptcha(page) {
+			return models.ShopeeScraperResult{}, fmt.Errorf(
+				"Shopee meminta verifikasi captcha saat berpindah halaman review",
+			)
+		}
+
+		fmt.Println(
+			"Halaman review:",
+			pageNumber,
+			"| total:",
+			currentTotal,
+		)
 
 		if currentTotal == lastTotal {
 			sameCount++
+
 			if sameCount >= 3 {
 				break
 			}
@@ -264,7 +357,9 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 	defer mu.Unlock()
 
 	if len(results) == 0 {
-		return models.ShopeeScraperResult{}, fmt.Errorf("review tidak ditemukan atau response get_ratings tidak muncul")
+		return models.ShopeeScraperResult{}, fmt.Errorf(
+			"review tidak ditemukan atau response get_ratings tidak muncul",
+		)
 	}
 
 	if len(results) > limit {
@@ -278,8 +373,65 @@ func (s ShopeeScraperService) ScrapeReviews(productURL string, limit int) (model
 	}, nil
 }
 
+func detectShopeeCaptcha(page playwright.Page) bool {
+	currentURL := strings.ToLower(page.URL())
+
+	if strings.Contains(currentURL, "captcha") ||
+		strings.Contains(currentURL, "verify") ||
+		strings.Contains(currentURL, "verification") {
+		return true
+	}
+
+	title, err := page.Title()
+	if err == nil {
+		title = strings.ToLower(title)
+
+		if strings.Contains(title, "captcha") ||
+			strings.Contains(title, "verification") ||
+			strings.Contains(title, "verifikasi") {
+			return true
+		}
+	}
+
+	selectors := []string{
+		`iframe[src*="captcha"]`,
+		`[class*="captcha"]`,
+		`[id*="captcha"]`,
+		`text=Security Verification`,
+		`text=Verifikasi Keamanan`,
+		`text=Silakan verifikasi`,
+		`text=Please verify`,
+	}
+
+	for _, selector := range selectors {
+		count, err := page.Locator(selector).Count()
+		if err == nil && count > 0 {
+			return true
+		}
+	}
+
+	return false
+}
+
+func waitForCaptchaSolved(
+	page playwright.Page,
+	timeoutSeconds int,
+) bool {
+	for second := 0; second < timeoutSeconds; second++ {
+		if !detectShopeeCaptcha(page) {
+			return true
+		}
+
+		page.WaitForTimeout(1000)
+	}
+
+	return false
+}
+
 func goNextReviewPage(page playwright.Page) bool {
-	nextBtn := page.Locator(".shopee-icon-button--right").First()
+	nextBtn := page.
+		Locator(".shopee-icon-button--right").
+		First()
 
 	count, err := nextBtn.Count()
 	if err != nil || count == 0 {
@@ -287,6 +439,7 @@ func goNextReviewPage(page playwright.Page) bool {
 	}
 
 	className, _ := nextBtn.GetAttribute("class")
+
 	if strings.Contains(className, "disabled") {
 		return false
 	}
@@ -297,16 +450,22 @@ func goNextReviewPage(page playwright.Page) bool {
 	err = nextBtn.Click(playwright.LocatorClickOptions{
 		Timeout: playwright.Float(7000),
 	})
+
 	if err != nil {
 		return false
 	}
 
 	page.WaitForTimeout(6000)
+
 	return true
 }
 
-func (s ShopeeScraperService) getShopName(page playwright.Page, shopID int64) (string, error) {
-	url := "https://shopee.co.id/api/v4/shop/get_shop_base?shopid=" + strconv.FormatInt(shopID, 10)
+func (s ShopeeScraperService) getShopName(
+	page playwright.Page,
+	shopID int64,
+) (string, error) {
+	url := "https://shopee.co.id/api/v4/shop/get_shop_base?shopid=" +
+		strconv.FormatInt(shopID, 10)
 
 	response, err := page.Request().Get(url)
 	if err != nil {
@@ -319,6 +478,7 @@ func (s ShopeeScraperService) getShopName(page playwright.Page, shopID int64) (s
 	}
 
 	var shopResponse shopeeShopResponse
+
 	if err := json.Unmarshal(body, &shopResponse); err != nil {
 		return "", err
 	}
