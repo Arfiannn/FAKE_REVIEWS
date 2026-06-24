@@ -50,7 +50,7 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
 
   return (
     <div className={`glass-panel rounded-2xl p-6 relative overflow-hidden transition-all duration-300 ${
-      isPalsu ? 'glow-rose border-rose-950/40' : 'glow-emerald border-emerald-950/40'
+      isPalsu ? 'glow-rose border-rose-200 dark:border-rose-950/40' : 'glow-emerald border-emerald-200 dark:border-emerald-950/40'
     }`}>
       {/* Decorative vertical band indicator */}
       <div className={`absolute top-0 bottom-0 left-0 w-[4px] ${
@@ -58,16 +58,16 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
       }`}></div>
 
       {/* Header Info */}
-      <div className="flex flex-col lg:flex-row justify-between items-start gap-4 pb-4 border-b border-slate-900/60 mb-5">
+      <div className="flex flex-col lg:flex-row justify-between items-start gap-4 pb-4 border-b border-slate-200 dark:border-slate-900/60 mb-5">
         
         {/* User, Shop, Product information */}
         <div className="space-y-2 w-full lg:max-w-[70%]">
           <div className="flex items-center gap-2.5">
-            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-950 border border-indigo-500/20 text-xs font-black text-indigo-400">
+            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-indigo-50 dark:bg-indigo-950 border border-indigo-200 dark:border-indigo-500/20 text-xs font-black text-indigo-600 dark:text-indigo-400 shadow-sm">
               #{index}
             </span>
-            <div className="flex items-center gap-1.5 text-sm font-extrabold text-slate-100">
-              <User className="w-3.5 h-3.5 text-indigo-400" />
+            <div className="flex items-center gap-1.5 text-sm font-extrabold text-slate-800 dark:text-slate-100">
+              <User className="w-3.5 h-3.5 text-indigo-650 dark:text-indigo-400" />
               <span>{username}</span>
             </div>
             <div className="flex items-center text-xs">
@@ -75,20 +75,20 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-400">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
             <div className="flex items-center gap-1.5 truncate">
-              <Store className="w-3.5 h-3.5 text-indigo-400/80 shrink-0" />
-              <span>Toko: <strong className="text-slate-300 font-bold">{shop_name}</strong></span>
+              <Store className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400/80 shrink-0" />
+              <span>Toko: <strong className="text-slate-700 dark:text-slate-300 font-bold">{shop_name}</strong></span>
             </div>
             <div className="flex items-center gap-1.5 truncate">
-              <Bookmark className="w-3.5 h-3.5 text-indigo-400/80 shrink-0" />
-              <span>Produk: <strong className="text-slate-300 font-bold">{product_name}</strong></span>
+              <Bookmark className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400/80 shrink-0" />
+              <span>Produk: <strong className="text-slate-700 dark:text-slate-300 font-bold">{product_name}</strong></span>
             </div>
           </div>
         </div>
 
         {/* Date / Metadata */}
-        <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400 shrink-0 self-end lg:self-start">
+        <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 shrink-0 self-end lg:self-start">
           <Calendar className="w-3.5 h-3.5 text-slate-500" />
           <span>{formatDate(date)}</span>
         </div>
@@ -101,17 +101,17 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
         {/* Metric 1: System Prediction Box */}
         <div className={`p-4 rounded-xl border flex flex-col justify-between ${
           isPalsu
-            ? 'bg-rose-950/10 border-rose-500/10'
-            : 'bg-emerald-950/10 border-emerald-500/10'
+            ? 'bg-rose-50 dark:bg-rose-950/10 border-rose-200 dark:border-rose-500/10'
+            : 'bg-emerald-50 dark:bg-emerald-950/10 border-emerald-200 dark:border-emerald-500/10'
         }`}>
           <div className="flex justify-between items-center mb-3">
-            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
+            <span className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Prediksi Sistem
             </span>
             <span className={`inline-flex items-center gap-1 text-[11px] font-black px-2.5 py-0.5 rounded-full ${
               isPalsu
-                ? 'bg-rose-500/10 border border-rose-500/25 text-rose-400'
-                : 'bg-emerald-500/10 border border-emerald-500/25 text-emerald-400'
+                ? 'bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/25 text-rose-600 dark:text-rose-400'
+                : 'bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/25 text-emerald-600 dark:text-emerald-400'
             }`}>
               {isPalsu ? <ShieldAlert className="w-3 h-3" /> : <ShieldCheck className="w-3 h-3" />}
               {predictionLabel}
@@ -119,13 +119,13 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
           </div>
 
           <div className="space-y-1.5">
-            <div className="flex justify-between items-center text-[10px] font-bold text-slate-400">
+            <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 dark:text-slate-400">
               <span>Confidence Score</span>
-              <span className={isPalsu ? 'text-rose-400' : 'text-emerald-400'}>
+              <span className={isPalsu ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'}>
                 {formatSimilarity(confidenceScore)}
               </span>
             </div>
-            <div className="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden border border-slate-900">
+            <div className="w-full bg-slate-100 dark:bg-slate-950 rounded-full h-1.5 overflow-hidden border border-slate-200 dark:border-slate-900">
               <div
                 className={`h-full rounded-full transition-all duration-1000 ${
                   isPalsu ? 'bg-gradient-to-r from-orange-500 to-rose-500' : 'bg-gradient-to-r from-teal-500 to-emerald-500'
@@ -139,17 +139,17 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
         {/* Metric 2: AI Judge Validation Box */}
         <div className={`p-4 rounded-xl border flex flex-col justify-between ${
           isJudgeValid
-            ? 'bg-emerald-950/10 border-emerald-500/10'
-            : 'bg-amber-950/10 border-amber-500/10'
+            ? 'bg-emerald-50 dark:bg-emerald-950/10 border-emerald-200 dark:border-emerald-500/10'
+            : 'bg-amber-50 dark:bg-amber-950/10 border-amber-200 dark:border-amber-500/10'
         }`}>
           <div className="flex justify-between items-center mb-3">
-            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-wider">
+            <span className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
               Validasi AI Judge
             </span>
             <span className={`inline-flex items-center gap-1 text-[11px] font-black px-2.5 py-0.5 rounded-full ${
               isJudgeValid
-                ? 'bg-emerald-500/10 border border-emerald-500/25 text-emerald-400'
-                : 'bg-amber-500/10 border border-amber-500/25 text-amber-400'
+                ? 'bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/25 text-emerald-600 dark:text-emerald-400'
+                : 'bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/25 text-amber-600 dark:text-amber-400'
             }`}>
               {isJudgeValid ? <CheckCircle2 className="w-3 h-3" /> : <AlertTriangle className="w-3 h-3" />}
               {isJudgeValid ? 'Validasi Mendukung' : 'Perlu Ditinjau'}
@@ -157,13 +157,13 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
           </div>
 
           <div className="space-y-1.5">
-            <div className="flex justify-between items-center text-[10px] font-bold text-slate-400">
+            <div className="flex justify-between items-center text-[10px] font-bold text-slate-500 dark:text-slate-400">
               <span>Judge Score</span>
-              <span className={isJudgeValid ? 'text-emerald-400' : 'text-amber-400'}>
+              <span className={isJudgeValid ? 'text-emerald-600 dark:text-emerald-400' : 'text-amber-600 dark:text-amber-400'}>
                 {judgeScore !== undefined ? `${judgeScore}/100` : '-'}
               </span>
             </div>
-            <div className="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden border border-slate-900">
+            <div className="w-full bg-slate-100 dark:bg-slate-950 rounded-full h-1.5 overflow-hidden border border-slate-200 dark:border-slate-900">
               <div
                 className={`h-full rounded-full transition-all duration-1000 ${
                   isJudgeValid ? 'bg-gradient-to-r from-teal-500 to-emerald-500' : 'bg-gradient-to-r from-yellow-500 to-amber-500'
@@ -180,21 +180,21 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         
         {/* Raw Text Card */}
-        <div className="bg-slate-950/50 rounded-xl p-4 border border-slate-900/80">
-          <span className="text-[9px] font-extrabold text-indigo-400/90 uppercase tracking-widest block mb-2 flex items-center gap-1">
+        <div className="bg-white dark:bg-slate-950/50 rounded-xl p-4 border border-slate-200 dark:border-slate-900/80 shadow-inner">
+          <span className="text-[9px] font-extrabold text-indigo-650 dark:text-indigo-400/90 uppercase tracking-widest block mb-2 flex items-center gap-1">
             <Quote className="w-2.5 h-2.5" /> Ulasan Asli (Raw)
           </span>
-          <p className="text-xs text-slate-300 leading-relaxed font-semibold italic">
+          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-semibold italic">
             "{raw_review || '-'}"
           </p>
         </div>
 
         {/* Clean Text Card */}
-        <div className="bg-slate-950/50 rounded-xl p-4 border border-slate-900/80">
-          <span className="text-[9px] font-extrabold text-indigo-400/90 uppercase tracking-widest block mb-2 flex items-center gap-1">
+        <div className="bg-white dark:bg-slate-950/50 rounded-xl p-4 border border-slate-200 dark:border-slate-900/80 shadow-inner">
+          <span className="text-[9px] font-extrabold text-indigo-650 dark:text-indigo-400/90 uppercase tracking-widest block mb-2 flex items-center gap-1">
             <BookOpen className="w-2.5 h-2.5" /> Ulasan Terbersih (Preprocessed)
           </span>
-          <p className="text-xs text-slate-300 leading-relaxed font-semibold">
+          <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
             {clean_review || '-'}
           </p>
         </div>
@@ -205,21 +205,21 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-5">
         
         {/* reasoning */}
-        <div className="bg-slate-950/30 rounded-xl border border-slate-900 p-4">
-          <span className="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest block mb-1.5 flex items-center gap-1">
-            <Cpu className="w-3 h-3 text-indigo-400" /> Alasan Klasifikasi AI
+        <div className="bg-slate-50 dark:bg-slate-950/30 rounded-xl border border-slate-200 dark:border-slate-900 p-4 shadow-sm">
+          <span className="text-[9px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest block mb-1.5 flex items-center gap-1">
+            <Cpu className="w-3 h-3 text-indigo-650 dark:text-indigo-400" /> Alasan Klasifikasi AI
           </span>
-          <p className="text-xs text-slate-400 leading-relaxed font-semibold max-h-24 overflow-y-auto pr-1">
+          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-semibold max-h-24 overflow-y-auto pr-1">
             {reasoning}
           </p>
         </div>
 
         {/* judge comment */}
-        <div className="bg-slate-950/30 rounded-xl border border-slate-900 p-4">
-          <span className="text-[9px] font-extrabold text-slate-400 uppercase tracking-widest block mb-1.5 flex items-center gap-1">
-            <MessageSquare className="w-3 h-3 text-indigo-400" /> Catatan AI Judge
+        <div className="bg-slate-50 dark:bg-slate-950/30 rounded-xl border border-slate-200 dark:border-slate-900 p-4 shadow-sm">
+          <span className="text-[9px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest block mb-1.5 flex items-center gap-1">
+            <MessageSquare className="w-3 h-3 text-indigo-650 dark:text-indigo-400" /> Catatan AI Judge
           </span>
-          <p className="text-xs text-slate-400 leading-relaxed font-semibold max-h-24 overflow-y-auto pr-1">
+          <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed font-semibold max-h-24 overflow-y-auto pr-1">
             {judgeComment}
           </p>
         </div>
@@ -228,21 +228,21 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
 
       {/* Accordion trigger for Retrieval RAG Results */}
       {retrieval_results && retrieval_results.length > 0 && (
-        <div className="pt-2 border-t border-slate-900/60 mt-4">
+        <div className="pt-2 border-t border-slate-200 dark:border-slate-900/60 mt-4">
           <button
             type="button"
             onClick={() => setIsAccordionOpen(!isAccordionOpen)}
-            className="w-full flex items-center justify-between py-2 text-xs font-extrabold text-indigo-400 hover:text-indigo-300 transition-colors cursor-pointer select-none focus:outline-none"
+            className="w-full flex items-center justify-between py-2 text-xs font-extrabold text-indigo-650 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors cursor-pointer select-none focus:outline-none"
           >
             <span className="flex items-center gap-2">
               <Layers className="w-4 h-4" />
               Dokumen Pembanding (RAG Match - {retrieval_results.length} Ulasan)
             </span>
             <span className="flex items-center gap-1.5">
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-950/60 border border-indigo-500/10">
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-500/10 text-indigo-700 dark:text-indigo-300 shadow-sm">
                 {isAccordionOpen ? 'Sembunyikan' : 'Tampilkan'}
               </span>
-              {isAccordionOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+              {isAccordionOpen ? <ChevronUp className="w-4 h-4 text-slate-500 dark:text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-500 dark:text-slate-400" />}
             </span>
           </button>
 
@@ -254,10 +254,10 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
                 return (
                   <div
                     key={ragIdx}
-                    className="bg-slate-950/80 border border-slate-900 rounded-xl p-3.5 flex flex-col justify-between"
+                    className="bg-white dark:bg-slate-950/80 border border-slate-250 dark:border-slate-900 rounded-xl p-3.5 flex flex-col justify-between shadow-sm"
                   >
-                    <div className="flex justify-between items-center gap-2 mb-2 pb-1.5 border-b border-slate-900">
-                      <span className="flex items-center justify-center w-5 h-5 rounded bg-indigo-950 border border-indigo-500/15 text-[10px] font-black text-indigo-400">
+                    <div className="flex justify-between items-center gap-2 mb-2 pb-1.5 border-b border-slate-200 dark:border-slate-900">
+                      <span className="flex items-center justify-center w-5 h-5 rounded bg-indigo-50 dark:bg-indigo-950 border border-indigo-200 dark:border-indigo-500/15 text-[10px] font-black text-indigo-600 dark:text-indigo-400">
                         #{ragIdx + 1}
                       </span>
                       
@@ -268,21 +268,21 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
                         </div>
 
                         {/* Similarity percentage */}
-                        <span className="inline-flex items-center gap-0.5 text-[10px] font-extrabold text-slate-300 bg-slate-900 border border-slate-800 px-1.5 py-0.5 rounded">
-                          <Flame className="w-2.5 h-2.5 text-orange-400" />
+                        <span className="inline-flex items-center gap-0.5 text-[10px] font-extrabold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-1.5 py-0.5 rounded shadow-sm">
+                          <Flame className="w-2.5 h-2.5 text-orange-550 dark:text-orange-400" />
                           <span>{formatSimilarity(ragItem.similarity)}</span>
                         </span>
                       </div>
                     </div>
 
-                    <p className="text-xs text-slate-300 italic font-semibold leading-relaxed mb-3">
+                    <p className="text-xs text-slate-700 dark:text-slate-300 italic font-semibold leading-relaxed mb-3">
                       "{ragItem.clean_review || '-'}"
                     </p>
 
-                    <div className="flex items-center justify-between pt-1 text-[10px] font-bold text-slate-500">
+                    <div className="flex items-center justify-between pt-1 text-[10px] font-bold text-slate-505 dark:text-slate-500">
                       <span>Label Pembanding:</span>
                       <span className={`px-1.5 py-0.5 rounded font-black uppercase text-[9px] ${
-                        isRagPalsu ? 'text-rose-400 bg-rose-950/20' : 'text-emerald-400 bg-emerald-950/20'
+                        isRagPalsu ? 'text-rose-605 bg-rose-50 dark:text-rose-400 dark:bg-rose-950/20' : 'text-emerald-605 bg-emerald-50 dark:text-emerald-400 dark:bg-emerald-950/20'
                       }`}>
                         {ragItem.label || '-'}
                       </span>
@@ -303,8 +303,8 @@ const ShopeeSingleReviewCard = ({ index, review }) => {
 const ShopeeReviewResultCard = ({ results }) => {
   if (!results || results.length === 0) {
     return (
-      <div className="w-full max-w-7xl mx-auto px-4 mb-8 text-center py-10 bg-slate-900/30 border border-slate-800 rounded-2xl">
-        <p className="text-slate-400 text-sm font-semibold">Tidak ada ulasan Shopee yang ditemukan.</p>
+      <div className="w-full max-w-7xl mx-auto px-4 mb-8 text-center py-10 bg-slate-50/50 dark:bg-slate-900/30 border border-slate-200 dark:border-slate-800 rounded-2xl">
+        <p className="text-slate-500 dark:text-slate-400 text-sm font-semibold">Tidak ada ulasan Shopee yang ditemukan.</p>
       </div>
     );
   }
@@ -312,8 +312,8 @@ const ShopeeReviewResultCard = ({ results }) => {
   return (
     <div className="w-full max-w-7xl mx-auto px-4 mb-8 space-y-6 animate-fade-in">
       <div className="flex items-center gap-2 mb-2">
-        <MessageSquare className="w-5 h-5 text-indigo-400" />
-        <h3 className="text-base font-extrabold text-slate-200 uppercase tracking-wider">
+        <MessageSquare className="w-5 h-5 text-indigo-650 dark:text-indigo-400" />
+        <h3 className="text-base font-extrabold text-slate-850 dark:text-slate-200 uppercase tracking-wider">
           Daftar Rincian Review Shopee ({results.length})
         </h3>
       </div>

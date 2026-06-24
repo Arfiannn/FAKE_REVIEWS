@@ -83,22 +83,22 @@ function App() {
         {/* Loading State */}
         {isLoading && (
           <div className="w-full max-w-3xl mx-auto glass-panel rounded-2xl p-12 text-center flex flex-col items-center justify-center glow-indigo shadow-xl mb-8 animate-pulse-slow">
-            <div className="p-4 rounded-full bg-indigo-950/60 border border-indigo-500/20 mb-6 relative">
+            <div className="p-4 rounded-full bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-500/20 mb-6 relative">
               <div className="absolute inset-0 rounded-full border border-indigo-500/30 animate-ping"></div>
-              <RefreshCw className="w-8 h-8 text-indigo-400 animate-spin" />
+              <RefreshCw className="w-8 h-8 text-indigo-600 dark:text-indigo-400 animate-spin" />
             </div>
             
-            <h3 className="text-lg font-bold text-slate-100 mb-2">
+            <h3 className="text-lg font-bold text-slate-850 dark:text-slate-100 mb-2">
               {loadingIsShopee ? 'Memproses Link Shopee' : 'Menganalisis Review Manual'}
             </h3>
             
-            <p className="text-sm text-indigo-400 font-bold mb-4 px-6 leading-relaxed">
+            <p className="text-sm text-indigo-600 dark:text-indigo-400 font-bold mb-4 px-6 leading-relaxed">
               {loadingIsShopee
                 ? 'Mengambil review dari Shopee dan menganalisis hasil fake review...'
                 : 'Menganalisis review...'}
             </p>
 
-            <span className="text-xs text-slate-400 font-medium italic mb-5 block">
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-medium italic mb-5 block">
               Proses aktif: {loadingSteps[loadingStep]}
             </span>
             
@@ -109,10 +109,10 @@ function App() {
                   key={idx}
                   className={`h-1.5 rounded-full transition-all duration-500 ${
                     idx === loadingStep
-                      ? 'w-8 bg-indigo-500'
+                      ? 'w-8 bg-indigo-600 dark:bg-indigo-500'
                       : idx < loadingStep
                       ? 'w-3 bg-emerald-500/80'
-                      : 'w-3 bg-slate-800'
+                      : 'w-3 bg-slate-200 dark:bg-slate-800'
                   }`}
                 />
               ))}
@@ -120,7 +120,7 @@ function App() {
 
             {/* Timeout warning notice */}
             {loadingIsShopee && (
-              <div className="mt-8 px-4 py-3 rounded-xl bg-amber-500/5 border border-amber-500/20 text-xs text-amber-400/90 font-semibold max-w-md mx-auto leading-normal">
+              <div className="mt-8 px-4 py-3 rounded-xl bg-amber-500/5 border border-amber-500/20 text-xs text-amber-600 dark:text-amber-400/90 font-semibold max-w-md mx-auto leading-normal">
                 ⚠️ Proses analisis link Shopee dapat memakan waktu lebih lama, terutama jika jumlah review besar.
               </div>
             )}
@@ -129,13 +129,13 @@ function App() {
 
         {/* Error Handling Alert */}
         {error && (
-          <div className="w-full max-w-3xl mx-auto mb-8 bg-rose-500/10 border border-rose-500/30 rounded-2xl p-5 flex items-start gap-4 shadow-lg shadow-rose-950/20">
-            <div className="p-2 rounded-xl bg-rose-950/50 border border-rose-500/20 text-rose-400 shrink-0">
+          <div className="w-full max-w-3xl mx-auto mb-8 bg-rose-50 dark:bg-rose-500/10 border border-rose-200 dark:border-rose-500/30 rounded-2xl p-5 flex items-start gap-4 shadow-lg shadow-indigo-950/5 dark:shadow-rose-950/20">
+            <div className="p-2 rounded-xl bg-rose-100 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400 shrink-0">
               <AlertTriangle className="w-6 h-6" />
             </div>
             <div className="space-y-1 text-left">
-              <h4 className="text-sm font-extrabold text-rose-400 uppercase tracking-wider">Kesalahan Deteksi</h4>
-              <p className="text-slate-300 text-sm font-semibold">{error}</p>
+              <h4 className="text-sm font-extrabold text-rose-600 dark:text-rose-400 uppercase tracking-wider">Kesalahan Deteksi</h4>
+              <p className="text-slate-700 dark:text-slate-300 text-sm font-semibold">{error}</p>
             </div>
           </div>
         )}
@@ -148,39 +148,39 @@ function App() {
             <div className="absolute -bottom-12 -right-12 w-48 h-48 bg-purple-500/5 rounded-full blur-3xl"></div>
 
             <div className="flex justify-center mb-6">
-              <div className="p-3.5 rounded-2xl bg-indigo-950/60 border border-indigo-500/25">
-                <Bot className="w-10 h-10 text-indigo-400" />
+              <div className="p-3.5 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-500/25">
+                <Bot className="w-10 h-10 text-indigo-600 dark:text-indigo-400" />
               </div>
             </div>
 
-            <h2 className="text-xl md:text-2xl font-extrabold text-slate-200 mb-3 tracking-tight">
+            <h2 className="text-xl md:text-2xl font-extrabold text-slate-800 dark:text-slate-200 mb-3 tracking-tight">
               Siap Menganalisis Ulasan Produk Anda
             </h2>
-            <p className="text-slate-400 text-sm md:text-base leading-relaxed max-w-lg mx-auto mb-8 font-medium">
+            <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base leading-relaxed max-w-lg mx-auto mb-8 font-medium">
               Gunakan teknologi kecerdasan buatan hibrida untuk mendeteksi ulasan manipulatif secara akurat dengan mencocokkan pola RAG, HyDE, dan validasi evaluator LLM independen.
             </p>
 
             {/* Quick explanation flow cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-              <div className="bg-slate-950/40 border border-slate-900 rounded-xl p-4 flex gap-3">
-                <Layers className="w-5 h-5 text-blue-400 shrink-0 mt-0.5" />
+              <div className="bg-white dark:bg-slate-950/40 border border-slate-250/60 dark:border-slate-900 rounded-xl p-4 flex gap-3 shadow-sm dark:shadow-none">
+                <Layers className="w-5 h-5 text-blue-500 dark:text-blue-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold text-slate-200 uppercase mb-1">1. RAG Retrieval</h4>
-                  <p className="text-[11px] text-slate-400 leading-normal">Mencari ribuan ulasan pembanding di Vector Database.</p>
+                  <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase mb-1">1. RAG Retrieval</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-normal">Mencari ribuan ulasan pembanding di Vector Database.</p>
                 </div>
               </div>
-              <div className="bg-slate-950/40 border border-slate-900 rounded-xl p-4 flex gap-3">
-                <Cpu className="w-5 h-5 text-purple-400 shrink-0 mt-0.5" />
+              <div className="bg-white dark:bg-slate-950/40 border border-slate-250/60 dark:border-slate-900 rounded-xl p-4 flex gap-3 shadow-sm dark:shadow-none">
+                <Cpu className="w-5 h-5 text-purple-500 dark:text-purple-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold text-slate-200 uppercase mb-1">2. DeepSeek AI</h4>
-                  <p className="text-[11px] text-slate-400 leading-normal">Klasifikasi semantik tingkat lanjut untuk mendeteksi anomali kata.</p>
+                  <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase mb-1">2. DeepSeek AI</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-normal">Klasifikasi semantik tingkat lanjut untuk mendeteksi anomali kata.</p>
                 </div>
               </div>
-              <div className="bg-slate-950/40 border border-slate-900 rounded-xl p-4 flex gap-3">
-                <Sparkles className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+              <div className="bg-white dark:bg-slate-950/40 border border-slate-250/60 dark:border-slate-900 rounded-xl p-4 flex gap-3 shadow-sm dark:shadow-none">
+                <Sparkles className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="text-xs font-bold text-slate-200 uppercase mb-1">3. AI Judge</h4>
-                  <p className="text-[11px] text-slate-400 leading-normal">Penilaian objektivitas akhir untuk memastikan validasi tanpa bias.</p>
+                  <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase mb-1">3. AI Judge</h4>
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-normal">Penilaian objektivitas akhir untuk memastikan validasi tanpa bias.</p>
                 </div>
               </div>
             </div>

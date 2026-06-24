@@ -29,12 +29,12 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
             <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2">
               <label
                 htmlFor="review"
-                className="text-sm font-semibold text-slate-200 flex items-center gap-2"
+                className="text-sm font-semibold text-slate-700 dark:text-slate-200 flex items-center gap-2"
               >
                 {isShopee ? (
-                  <LinkIcon className="w-4 h-4 text-indigo-400 animate-pulse" />
+                  <LinkIcon className="w-4 h-4 text-indigo-600 dark:text-indigo-400 animate-pulse" />
                 ) : (
-                  <Sparkles className="w-4 h-4 text-indigo-400" />
+                  <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
                 )}
                 Masukkan Review atau Link Produk Shopee
               </label>
@@ -44,18 +44,18 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
                   type="button"
                   onClick={() => setReviewText(exampleReview)}
                   disabled={isLoading}
-                  className="text-[11px] font-bold text-slate-400 hover:text-indigo-300 transition-colors bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 px-2.5 py-1 rounded-md cursor-pointer flex items-center gap-1"
+                  className="text-[11px] font-bold text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors bg-white/80 hover:bg-slate-50 dark:bg-slate-900/60 dark:hover:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 px-2.5 py-1 rounded-md cursor-pointer flex items-center gap-1 shadow-sm"
                 >
-                  <Edit3 className="w-3 h-3 text-indigo-400" />
+                  <Edit3 className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />
                   Gunakan Contoh Review
                 </button>
                 <button
                   type="button"
                   onClick={() => setReviewText(exampleLink)}
                   disabled={isLoading}
-                  className="text-[11px] font-bold text-slate-400 hover:text-indigo-300 transition-colors bg-slate-900/60 hover:bg-slate-900/90 border border-slate-800/80 px-2.5 py-1 rounded-md cursor-pointer flex items-center gap-1"
+                  className="text-[11px] font-bold text-slate-600 hover:text-indigo-600 dark:text-slate-400 dark:hover:text-indigo-300 transition-colors bg-white/80 hover:bg-slate-50 dark:bg-slate-900/60 dark:hover:bg-slate-900/90 border border-slate-200 dark:border-slate-800/80 px-2.5 py-1 rounded-md cursor-pointer flex items-center gap-1 shadow-sm"
                 >
-                  <LinkIcon className="w-3 h-3 text-indigo-400" />
+                  <LinkIcon className="w-3 h-3 text-indigo-500 dark:text-indigo-400" />
                   Gunakan Contoh Link
                 </button>
               </div>
@@ -68,21 +68,21 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
               onChange={(e) => setReviewText(e.target.value)}
               disabled={isLoading}
               placeholder={`Contoh review: ${exampleReview}\nContoh link: ${exampleLink}`}
-              className="w-full px-4 py-3 rounded-xl bg-slate-950/70 border border-slate-800 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all resize-none text-sm leading-relaxed font-medium"
+              className="w-full px-4 py-3 rounded-xl bg-white dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all resize-none text-sm leading-relaxed font-medium shadow-inner"
             />
           </div>
 
           {/* Shopee Limit Selector */}
           {isShopee && (
-            <div className="bg-slate-900/40 border border-indigo-950/40 rounded-xl p-5 space-y-4 animate-fade-in relative overflow-hidden">
+            <div className="bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-indigo-950/40 rounded-xl p-5 space-y-4 animate-fade-in relative overflow-hidden shadow-sm">
               <div className="absolute top-0 bottom-0 left-0 w-[3px] bg-indigo-500"></div>
               
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div>
-                  <h4 className="text-xs font-extrabold text-indigo-400 uppercase tracking-wider mb-0.5">
+                  <h4 className="text-xs font-extrabold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider mb-0.5">
                     Jumlah Review Shopee
                   </h4>
-                  <p className="text-[11px] text-slate-400 font-medium">
+                  <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">
                     Pilih atau tentukan jumlah review yang akan ditarik dan dianalisis
                   </p>
                 </div>
@@ -97,8 +97,8 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
                       disabled={isLoading}
                       className={`text-xs font-bold px-3 py-1 rounded-lg transition-all cursor-pointer ${
                         limit === val
-                           ? 'bg-indigo-600 text-white shadow shadow-indigo-600/30'
-                           : 'bg-slate-950 hover:bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-900'
+                          ? 'bg-indigo-600 text-white shadow shadow-indigo-600/30'
+                          : 'bg-white hover:bg-slate-50 dark:bg-slate-950 dark:hover:bg-slate-900 text-slate-600 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 border border-slate-200 dark:border-slate-900 shadow-sm'
                       }`}
                     >
                       {val}
@@ -109,7 +109,7 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
 
               <div className="flex flex-col sm:flex-row sm:items-center gap-4 pt-1">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs text-slate-400 font-semibold whitespace-nowrap">Input Manual:</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-semibold whitespace-nowrap">Input Manual:</span>
                   <input
                     type="number"
                     min={1}
@@ -123,14 +123,14 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
                       setLimit(val);
                     }}
                     disabled={isLoading}
-                    className="w-20 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-800 text-slate-100 text-sm font-bold text-center focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30 transition-all"
+                    className="w-20 px-3 py-1.5 rounded-lg bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-100 text-sm font-bold text-center focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/30 transition-all shadow-sm"
                   />
-                  <span className="text-xs text-slate-500 font-medium">
+                  <span className="text-xs text-slate-400 dark:text-slate-500 font-medium">
                     (Max 50)
                   </span>
                 </div>
                 
-                <p className="text-[11px] text-amber-500/80 font-bold leading-normal">
+                <p className="text-[11px] text-amber-600 dark:text-amber-500/80 font-bold leading-normal">
                   ⚠️ Semakin banyak review, proses analisis akan lebih lama.
                 </p>
               </div>
@@ -140,9 +140,9 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
           <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
             {/* Top-K Select Input and Description */}
             <div className="flex flex-col gap-2 max-w-lg">
-              <div className="flex items-center gap-3 bg-slate-900/60 border border-slate-800 rounded-xl px-4 py-2.5 w-max">
-                <Layers className="w-4 h-4 text-slate-400 shrink-0" />
-                <label htmlFor="top-k" className="text-xs font-semibold text-slate-400 whitespace-nowrap">
+              <div className="flex items-center gap-3 bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl px-4 py-2.5 w-max shadow-sm">
+                <Layers className="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" />
+                <label htmlFor="top-k" className="text-xs font-semibold text-slate-500 dark:text-slate-400 whitespace-nowrap">
                   Top-K RAG:
                 </label>
                 <select
@@ -150,17 +150,17 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
                   value={topK}
                   onChange={(e) => setTopK(Number(e.target.value))}
                   disabled={isLoading}
-                  className="bg-transparent text-sm font-bold text-slate-200 outline-none w-12 cursor-pointer focus:text-indigo-400"
+                  className="bg-transparent text-sm font-bold text-slate-700 dark:text-slate-200 outline-none w-12 cursor-pointer focus:text-indigo-600 dark:focus:text-indigo-400"
                 >
                   {[3, 5, 10, 15, 20].map((k) => (
-                    <option key={k} value={k} className="bg-slate-950 text-slate-200">
+                    <option key={k} value={k} className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200">
                       {k}
                     </option>
                   ))}
                 </select>
               </div>
-              <p className="text-[11px] text-slate-400 font-medium leading-relaxed flex items-start gap-1.5">
-                <HelpCircle className="w-3.5 h-3.5 text-indigo-400 shrink-0 mt-0.5" />
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed flex items-start gap-1.5">
+                <HelpCircle className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
                 <span>
                   Top-K RAG = jumlah referensi yang dipakai AI. Nilai 5–10 seimbang, makin besar nilainya proses bisa lebih lama.
                 </span>
@@ -173,7 +173,7 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
               disabled={!reviewText.trim() || isLoading}
               className={`flex items-center justify-center gap-2.5 px-6 py-3 rounded-xl font-bold transition-all duration-300 select-none ${
                 !reviewText.trim() || isLoading
-                  ? 'bg-slate-800/40 text-slate-500 border border-slate-800/80 cursor-not-allowed'
+                  ? 'bg-slate-100 dark:bg-slate-800/40 text-slate-400 dark:text-slate-500 border border-slate-200 dark:border-slate-800/80 cursor-not-allowed'
                   : 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30 hover:shadow-indigo-500/40 transform active:scale-95 cursor-pointer'
               }`}
             >

@@ -15,19 +15,19 @@ const HyDECard = ({ hydeDocument }) => {
         {/* Card Title & Info trigger */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div className="flex items-center gap-2.5">
-            <div className="p-2 rounded-xl bg-amber-950/40 border border-amber-500/20">
-              <Lightbulb className="w-5 h-5 text-amber-400" />
+            <div className="p-2 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-500/20">
+              <Lightbulb className="w-5 h-5 text-amber-600 dark:text-amber-400" />
             </div>
             <div>
-              <h3 className="text-base font-bold text-slate-200">Dokumen Hipotetik HyDE</h3>
-              <p className="text-xs text-slate-400 font-medium">Ulasan ideal buatan LLM untuk memandu pencarian RAG</p>
+              <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">Dokumen Hipotetik HyDE</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400 font-medium">Ulasan ideal buatan LLM untuk memandu pencarian RAG</p>
             </div>
           </div>
 
           <button
             type="button"
             onClick={() => setShowExplanation(!showExplanation)}
-            className="self-start sm:self-center flex items-center gap-1.5 text-xs text-indigo-400 hover:text-indigo-300 font-semibold transition-colors bg-indigo-950/30 hover:bg-indigo-950/60 px-2.5 py-1 rounded-md border border-indigo-500/10 cursor-pointer"
+            className="self-start sm:self-center flex items-center gap-1.5 text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 font-semibold transition-colors bg-indigo-50 dark:bg-indigo-950/30 hover:bg-indigo-100 dark:hover:bg-indigo-950/60 px-2.5 py-1 rounded-md border border-indigo-200 dark:border-indigo-500/10 cursor-pointer shadow-sm"
           >
             <HelpCircle className="w-3.5 h-3.5" />
             <span>{showExplanation ? 'Sembunyikan Info' : 'Apa itu HyDE?'}</span>
@@ -36,18 +36,18 @@ const HyDECard = ({ hydeDocument }) => {
 
         {/* Dynamic Scientific Explanation of HyDE */}
         {showExplanation && (
-          <div className="mb-4 bg-slate-900/60 border border-slate-800 rounded-xl p-4 text-xs text-slate-300 leading-relaxed font-medium transition-all duration-300 flex gap-2.5">
-            <Info className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
+          <div className="mb-4 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 rounded-xl p-4 text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-medium transition-all duration-300 flex gap-2.5 shadow-inner">
+            <Info className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
             <div>
-              <strong className="text-indigo-300 block mb-0.5">Hypothetical Document Embeddings (HyDE)</strong>
+              <strong className="text-indigo-700 dark:text-indigo-300 block mb-0.5">Hypothetical Document Embeddings (HyDE)</strong>
               HyDE bekerja dengan meminta LLM menulis "ulasan palsu/asli hipotetis" terlebih dahulu sebelum melakukan pencarian. Dokumen hipotetis ini kemudian dijadikan representasi vektor untuk mencari ulasan yang mirip di Vector Database. Ini meningkatkan akurasi pencarian secara signifikan dibanding pencarian kata kunci langsung.
             </div>
           </div>
         )}
 
         {/* Content Box */}
-        <div className="bg-slate-950/60 rounded-xl border border-slate-900 p-4 md:p-5 relative">
-          <p className="text-sm text-slate-300 leading-relaxed font-medium italic">
+        <div className="bg-white dark:bg-slate-950/60 rounded-xl border border-slate-200 dark:border-slate-900 p-4 md:p-5 relative shadow-inner">
+          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium italic">
             "{hydeDocument}"
           </p>
         </div>

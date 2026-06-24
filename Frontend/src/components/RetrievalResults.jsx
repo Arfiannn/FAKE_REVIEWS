@@ -15,36 +15,36 @@ const RetrievalResults = ({ results }) => {
         {/* Interactive Header for Collapse/Expand */}
         <button
           onClick={toggleOpen}
-          className="w-full px-6 py-4 flex items-center justify-between bg-slate-900/40 hover:bg-slate-900/70 border-b border-slate-900/60 transition-colors focus:outline-none cursor-pointer"
+          className="w-full px-6 py-4 flex items-center justify-between bg-slate-50/80 hover:bg-slate-100/80 dark:bg-slate-900/40 dark:hover:bg-slate-900/70 border-b border-slate-250/60 dark:border-slate-900/60 transition-colors focus:outline-none cursor-pointer"
         >
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-indigo-950/50 border border-indigo-500/20">
-              <Database className="w-5 h-5 text-indigo-400" />
+            <div className="p-2 rounded-lg bg-indigo-50 dark:bg-indigo-950/50 border border-indigo-200 dark:border-indigo-500/20">
+              <Database className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             </div>
             <div className="text-left">
-              <h3 className="text-base font-bold text-slate-200">
+              <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">
                 Dokumen Pembanding (RAG Retrieval Results)
               </h3>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="text-xs text-slate-505 dark:text-slate-400 font-medium">
                 Ditemukan {results.length} ulasan serupa di Vector Database
               </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-indigo-400 bg-indigo-950/60 border border-indigo-500/20 px-2 py-0.5 rounded-md hidden sm:inline-block">
+            <span className="text-xs font-semibold text-indigo-650 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-500/20 px-2 py-0.5 rounded-md hidden sm:inline-block shadow-sm">
               {isOpen ? 'Sembunyikan' : 'Tampilkan'}
             </span>
             {isOpen ? (
-              <ChevronUp className="w-5 h-5 text-slate-400" />
+              <ChevronUp className="w-5 h-5 text-slate-500 dark:text-slate-400" />
             ) : (
-              <ChevronDown className="w-5 h-5 text-slate-400" />
+              <ChevronDown className="w-5 h-5 text-slate-500 dark:text-slate-400" />
             )}
           </div>
         </button>
 
         {/* Collapsible Content */}
         {isOpen && (
-          <div className="p-6 bg-slate-950/20">
+          <div className="p-6 bg-slate-50/20 dark:bg-slate-950/20">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {results.map((item, index) => {
                 const isPalsu = item.label?.toLowerCase() === 'palsu';
@@ -52,35 +52,35 @@ const RetrievalResults = ({ results }) => {
                 return (
                   <div
                     key={item.id || index}
-                    className="glass-panel-hover glass-panel rounded-xl p-5 border border-slate-900 relative overflow-hidden flex flex-col justify-between"
+                    className="glass-panel-hover glass-panel rounded-xl p-5 relative overflow-hidden flex flex-col justify-between"
                   >
                     {/* Rank Indicator and Similarity Tag */}
                     <div className="flex justify-between items-center mb-3">
                       <div className="flex items-center gap-2">
-                        <span className="flex items-center justify-center w-6 h-6 rounded-md bg-indigo-950 border border-indigo-500/20 text-xs font-bold text-indigo-400">
+                        <span className="flex items-center justify-center w-6 h-6 rounded-md bg-indigo-50 dark:bg-indigo-950 border border-indigo-200 dark:border-indigo-500/20 text-xs font-bold text-indigo-600 dark:text-indigo-400 shadow-sm">
                           #{index + 1}
                         </span>
                         {item.product_name && (
-                          <span className="text-xs font-bold text-slate-400 truncate max-w-[150px]">
+                          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 truncate max-w-[150px]">
                             {item.product_name}
                           </span>
                         )}
                       </div>
                       
                       {/* Similarity Badge */}
-                      <span className="inline-flex items-center gap-1 text-xs font-bold text-slate-300 bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-800">
-                        <Flame className="w-3 h-3 text-orange-400" />
+                      <span className="inline-flex items-center gap-1 text-xs font-bold text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-900/90 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm">
+                        <Flame className="w-3 h-3 text-orange-500 dark:text-orange-400" />
                         <span>Sim: {formatSimilarity(item.similarity)}</span>
                       </span>
                     </div>
 
                     {/* Review Clean Content */}
-                    <p className="text-sm text-slate-300 leading-relaxed font-medium mb-4 italic flex-grow">
+                    <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-medium mb-4 italic flex-grow">
                       "{item.clean_review || '-'}"
                     </p>
 
                     {/* Footer Details (Rating and Label) */}
-                    <div className="pt-3 border-t border-slate-900/80 flex justify-between items-center mt-auto">
+                    <div className="pt-3 border-t border-slate-200 dark:border-slate-900/80 flex justify-between items-center mt-auto">
                       {/* Stars Rating */}
                       <div className="flex items-center gap-1.5">
                         <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Rating:</span>
@@ -91,12 +91,12 @@ const RetrievalResults = ({ results }) => {
 
                       {/* Label Badge */}
                       <div className="flex items-center gap-1.5">
-                        <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">Status:</span>
+                        <span className="text-[10px] font-bold text-slate-505 dark:text-slate-500 uppercase tracking-wider">Status:</span>
                         <span
                           className={`inline-flex items-center gap-1 text-xs font-bold px-2 py-0.5 rounded-md ${
                             isPalsu
-                              ? 'bg-rose-500/10 border border-rose-500/20 text-rose-400'
-                              : 'bg-emerald-500/10 border border-emerald-500/20 text-emerald-400'
+                              ? 'bg-rose-50 dark:bg-rose-500/10 border border-rose-250 dark:border-rose-500/20 text-rose-600 dark:text-rose-400'
+                              : 'bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-250 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400'
                           }`}
                         >
                           <Tag className="w-3 h-3" />

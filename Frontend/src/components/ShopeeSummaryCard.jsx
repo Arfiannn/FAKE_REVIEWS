@@ -24,12 +24,12 @@ const ShopeeSummaryCard = ({ productUrl, summary }) => {
         <div className="absolute top-0 bottom-0 left-0 w-[4px] bg-gradient-to-b from-blue-500 to-indigo-500"></div>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="space-y-1">
-            <span className="text-[10px] font-extrabold text-indigo-400 uppercase tracking-widest block">
+            <span className="text-[10px] font-extrabold text-indigo-650 dark:text-indigo-400 uppercase tracking-widest block">
               SUMBER DATA ANALISIS
             </span>
             <div className="flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-slate-300" />
-              <h2 className="text-lg font-extrabold text-slate-100 tracking-tight truncate max-w-xl">
+              <ShoppingBag className="w-5 h-5 text-slate-500 dark:text-slate-300" />
+              <h2 className="text-lg font-extrabold text-slate-800 dark:text-slate-100 tracking-tight truncate max-w-xl">
                 Produk Shopee
               </h2>
             </div>
@@ -38,7 +38,7 @@ const ShopeeSummaryCard = ({ productUrl, summary }) => {
                 href={productUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors font-semibold flex items-center gap-1 hover:underline"
+                className="text-xs text-indigo-600 dark:text-indigo-400 hover:text-indigo-800 dark:hover:text-indigo-300 transition-colors font-semibold flex items-center gap-1 hover:underline"
               >
                 <span>{productUrl}</span>
                 <ExternalLink className="w-3.5 h-3.5" />
@@ -46,13 +46,13 @@ const ShopeeSummaryCard = ({ productUrl, summary }) => {
             )}
           </div>
 
-          <div className="bg-slate-950/60 border border-slate-900 px-4 py-2.5 rounded-xl flex items-center gap-3">
-            <BarChart3 className="w-5 h-5 text-indigo-400" />
+          <div className="bg-white dark:bg-slate-950/60 border border-slate-200 dark:border-slate-900 px-4 py-2.5 rounded-xl flex items-center gap-3 shadow-sm">
+            <BarChart3 className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
             <div>
-              <span className="text-[10px] font-bold text-slate-400 block uppercase">
+              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 block uppercase">
                 Ulasan Dianalisis
               </span>
-              <span className="text-base font-extrabold text-slate-100">{total_review} Ulasan</span>
+              <span className="text-base font-extrabold text-slate-800 dark:text-slate-100">{total_review} Ulasan</span>
             </div>
           </div>
         </div>
@@ -66,26 +66,26 @@ const ShopeeSummaryCard = ({ productUrl, summary }) => {
           <div className="absolute -top-12 -right-12 w-28 h-28 bg-emerald-500/5 rounded-full blur-2xl"></div>
           <div className="flex justify-between items-start mb-4">
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">REVIEW ASLI</span>
-              <div className="text-3xl font-extrabold text-emerald-400 font-mono">
+              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">REVIEW ASLI</span>
+              <div className="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 font-mono">
                 {percentage_asli}%
               </div>
             </div>
-            <div className="p-2 rounded-xl bg-emerald-950/40 border border-emerald-500/25">
-              <ShieldCheck className="w-6 h-6 text-emerald-400" />
+            <div className="p-2 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/25">
+              <ShieldCheck className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
             </div>
           </div>
           
           <div className="space-y-2 mt-2">
-            <div className="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+            <div className="w-full bg-slate-100 dark:bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-250/50 dark:border-slate-800">
               <div
                 className="h-full bg-gradient-to-r from-teal-500 to-emerald-500 rounded-full transition-all duration-1000"
                 style={{ width: `${percentage_asli}%` }}
               ></div>
             </div>
-            <div className="flex justify-between items-center text-[11px] text-slate-400 font-bold">
+            <div className="flex justify-between items-center text-[11px] text-slate-500 dark:text-slate-400 font-bold">
               <span>Total Terindikasi Asli</span>
-              <span className="text-emerald-400">{total_asli} ulasan</span>
+              <span className="text-emerald-600 dark:text-emerald-400">{total_asli} ulasan</span>
             </div>
           </div>
         </div>
@@ -95,26 +95,26 @@ const ShopeeSummaryCard = ({ productUrl, summary }) => {
           <div className="absolute -top-12 -right-12 w-28 h-28 bg-rose-500/5 rounded-full blur-2xl"></div>
           <div className="flex justify-between items-start mb-4">
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">INDthreshold FAKE REVIEW</span>
-              <div className="text-3xl font-extrabold text-rose-400 font-mono">
+              <span className="text-[10px] font-bold text-slate-505 dark:text-slate-400 uppercase">INDthreshold FAKE REVIEW</span>
+              <div className="text-3xl font-extrabold text-rose-600 dark:text-rose-400 font-mono">
                 {percentage_palsu}%
               </div>
             </div>
-            <div className="p-2 rounded-xl bg-rose-950/40 border border-rose-500/25">
-              <ShieldAlert className="w-6 h-6 text-rose-400" />
+            <div className="p-2 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-500/25">
+              <ShieldAlert className="w-6 h-6 text-rose-600 dark:text-rose-400" />
             </div>
           </div>
 
           <div className="space-y-2 mt-2">
-            <div className="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+            <div className="w-full bg-slate-100 dark:bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-250/50 dark:border-slate-800">
               <div
                 className="h-full bg-gradient-to-r from-orange-500 to-rose-500 rounded-full transition-all duration-1000"
                 style={{ width: `${percentage_palsu}%` }}
               ></div>
             </div>
-            <div className="flex justify-between items-center text-[11px] text-slate-400 font-bold">
+            <div className="flex justify-between items-center text-[11px] text-slate-500 dark:text-slate-400 font-bold">
               <span>Total Terindikasi Palsu</span>
-              <span className="text-rose-400">{total_palsu} ulasan</span>
+              <span className="text-rose-600 dark:text-rose-400">{total_palsu} ulasan</span>
             </div>
           </div>
         </div>
@@ -124,29 +124,29 @@ const ShopeeSummaryCard = ({ productUrl, summary }) => {
           <div className="absolute -top-12 -right-12 w-28 h-28 bg-indigo-500/5 rounded-full blur-2xl"></div>
           <div className="flex justify-between items-start mb-4">
             <div className="space-y-1">
-              <span className="text-[10px] font-bold text-slate-400 uppercase">REKAP VALIDASI AI JUDGE</span>
-              <div className="text-sm font-bold text-slate-200 mt-1">
+              <span className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase">REKAP VALIDASI AI JUDGE</span>
+              <div className="text-sm font-bold text-slate-800 dark:text-slate-200 mt-1">
                 Akurasi & Keselarasan
               </div>
             </div>
-            <div className="p-2 rounded-xl bg-indigo-950/40 border border-indigo-500/25">
-              <CheckCircle2 className="w-6 h-6 text-indigo-400" />
+            <div className="p-2 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-500/25">
+              <CheckCircle2 className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-3 mt-2">
-            <div className="bg-slate-950/40 border border-slate-900 p-2.5 rounded-xl flex items-center gap-2">
+            <div className="bg-white dark:bg-slate-950/40 border border-slate-200 dark:border-slate-900 p-2.5 rounded-xl flex items-center gap-2 shadow-sm">
               <div className="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
               <div>
-                <span className="text-[9px] text-slate-400 font-bold uppercase block">MENDUKUNG</span>
-                <span className="text-xs font-bold text-emerald-400">{valid_judge} Review</span>
+                <span className="text-[9px] text-slate-500 dark:text-slate-400 font-bold uppercase block">MENDUKUNG</span>
+                <span className="text-xs font-bold text-emerald-600 dark:text-emerald-400">{valid_judge} Review</span>
               </div>
             </div>
-            <div className="bg-slate-950/40 border border-slate-900 p-2.5 rounded-xl flex items-center gap-2">
+            <div className="bg-white dark:bg-slate-950/40 border border-slate-200 dark:border-slate-900 p-2.5 rounded-xl flex items-center gap-2 shadow-sm">
               <div className="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
               <div>
-                <span className="text-[9px] text-slate-400 font-bold uppercase block">PERLU TINJAU</span>
-                <span className="text-xs font-bold text-amber-400">{need_review_judge} Review</span>
+                <span className="text-[9px] text-slate-505 dark:text-slate-400 font-bold uppercase block">PERLU TINJAU</span>
+                <span className="text-xs font-bold text-amber-600 dark:text-amber-400">{need_review_judge} Review</span>
               </div>
             </div>
           </div>
@@ -158,16 +158,16 @@ const ShopeeSummaryCard = ({ productUrl, summary }) => {
       <div
         className={`glass-panel rounded-2xl p-6 relative overflow-hidden border ${
           isHighlyManipulated
-            ? 'glow-rose border-rose-900/30 bg-rose-950/10'
-            : 'glow-emerald border-emerald-900/30 bg-emerald-950/10'
+            ? 'glow-rose border-rose-200 dark:border-rose-900/30 bg-rose-50 dark:bg-rose-950/10'
+            : 'glow-emerald border-emerald-200 dark:border-emerald-900/30 bg-emerald-50 dark:bg-emerald-950/10'
         }`}
       >
         <div className="flex items-start gap-4">
           <div
             className={`p-3 rounded-2xl ${
               isHighlyManipulated
-                ? 'bg-rose-950/60 border border-rose-500/20 text-rose-400'
-                : 'bg-emerald-950/60 border border-emerald-500/20 text-emerald-400'
+                ? 'bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-500/20 text-rose-600 dark:text-rose-400'
+                : 'bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-500/20 text-emerald-600 dark:text-emerald-400'
             }`}
           >
             {isHighlyManipulated ? (
@@ -177,15 +177,15 @@ const ShopeeSummaryCard = ({ productUrl, summary }) => {
             )}
           </div>
           <div className="space-y-1">
-            <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest block">
+            <span className="text-[10px] font-extrabold text-slate-500 dark:text-slate-400 uppercase tracking-widest block">
               KESIMPULAN ANALISIS SHOPEE
             </span>
-            <p className="text-sm md:text-base font-extrabold text-slate-200 leading-relaxed">
+            <p className="text-sm md:text-base font-extrabold text-slate-800 dark:text-slate-200 leading-relaxed">
               {isHighlyManipulated
                 ? 'Produk ini memiliki indikasi fake review yang cukup tinggi berdasarkan review yang dianalisis.'
                 : 'Mayoritas review yang dianalisis terindikasi asli, namun tetap perhatikan review yang memerlukan tinjauan.'}
             </p>
-            <p className="text-xs text-slate-400 leading-normal pt-1.5">
+            <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal pt-1.5">
               💡 Keputusan pembelian disarankan didasarkan pada perbandingan ulasan dengan rating rendah (1-3 bintang) dan memperhatikan penilaian AI Judge yang berstatus "Perlu Ditinjau".
             </p>
           </div>
