@@ -4,6 +4,7 @@ import (
 	"BE_FAKE_REVIEW/config"
 	"BE_FAKE_REVIEW/models"
 	"BE_FAKE_REVIEW/services"
+	"math"
 	"net/http"
 	"strings"
 
@@ -244,5 +245,7 @@ func safePercent(value int, total int) float64 {
 		return 0
 	}
 
-	return float64(value) / float64(total) * 100
+	percentage := float64(value) / float64(total) * 100
+
+	return math.Round(percentage)
 }

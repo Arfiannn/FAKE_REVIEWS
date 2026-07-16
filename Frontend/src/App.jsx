@@ -13,6 +13,7 @@ function App() {
   const [error, setError] = useState(null);
   const [loadingStep, setLoadingStep] = useState(0);
   const [loadingIsShopee, setLoadingIsShopee] = useState(false);
+  const [analysisTime, setAnalysisTime] = useState(null);
 
   const loadingSteps = [
     'Mengekstrak data teks ulasan...',
@@ -38,16 +39,26 @@ function App() {
     setIsLoading(true);
     setError(null);
     setResult(null);
+    setAnalysisTime(null);
 
     const isShopee = input.includes('shopee.co.id') || input.includes('shp.ee');
     setLoadingIsShopee(isShopee);
+    const startTime = performance.now();
 
     try {
       const response = await analyzeInput(input, topK, limit);
+      const endTime = performance.now();
+      let timeInSeconds = (endTime - startTime) / 1000;
       
       // Strict response validation
       if (response && response.success && response.data) {
         setResult(response.data);
+        if (response.data.execution_time_seconds) {
+           timeInSeconds = response.data.execution_time_seconds;
+        } else if (response.execution_time_seconds) {
+           timeInSeconds = response.execution_time_seconds;
+        }
+        setAnalysisTime(timeInSeconds);
       } else {
         setError('Gagal memproses hasil analisis dari server.');
       }
@@ -190,6 +201,16 @@ function App() {
         {/* Results Panel with routing logic */}
         {!isLoading && result && (
           <div className="animate-fade-in">
+            {analysisTime !== null && (
+              <div className="w-full max-w-7xl mx-auto px-4 mb-4 flex justify-end">
+                <div className="bg-slate-50 dark:bg-slate-900/40 border border-slate-200 dark:border-slate-800 rounded-lg px-4 py-2 shadow-sm inline-flex items-center gap-2">
+                  <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Waktu Analisis:</span>
+                  <span className="text-sm font-extrabold text-indigo-600 dark:text-indigo-400">
+                    {analysisTime.toFixed(2).replace('.', ',')} detik
+                  </span>
+                </div>
+              </div>
+            )}
             {result.type === 'single_review' ? (
               <SingleReviewResult result={result.result} />
             ) : (

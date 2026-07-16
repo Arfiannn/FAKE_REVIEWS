@@ -45,6 +45,8 @@ func SetupRoutes(r *gin.Engine, cfg config.Config, db *gorm.DB) {
 		{
 			evaluation.POST("/classification", evaluationHandler.EvaluateClassification)
 			evaluation.POST("/retrieval", evaluationHandler.EvaluateRetrieval)
+			evaluation.POST("/retrieval/annotation", evaluationHandler.GenerateRetrievalAnnotation)
+			evaluation.POST("/retrieval/groundtruth", evaluationHandler.GenerateRetrievalGroundTruth)
 		}
 
 		judge := api.Group("/judge")

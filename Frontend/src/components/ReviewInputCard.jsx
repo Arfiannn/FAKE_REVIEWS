@@ -3,7 +3,7 @@ import { useState } from 'react';
 
 const ReviewInputCard = ({ onAnalyze, isLoading }) => {
   const [reviewText, setReviewText] = useState('');
-  const [topK, setTopK] = useState(10);
+  const [topK, setTopK] = useState(5);
   const [limit, setLimit] = useState(1);
 
   const exampleReview = 'produk bagus banget kualitas sesuai harga, pengiriman cepat dan barang sesuai deskripsi';
@@ -152,7 +152,7 @@ const ReviewInputCard = ({ onAnalyze, isLoading }) => {
                   disabled={isLoading}
                   className="bg-transparent text-sm font-bold text-slate-700 dark:text-slate-200 outline-none w-12 cursor-pointer focus:text-indigo-600 dark:focus:text-indigo-400"
                 >
-                  {[3, 5, 10, 15, 20].map((k) => (
+                  {[1, 3, 5, 10].map((k) => (
                     <option key={k} value={k} className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200">
                       {k}
                     </option>
